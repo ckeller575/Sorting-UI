@@ -5,6 +5,7 @@
 
 using namespace std;
 
+//Implemented my own queue class
 class queue {
     public:
         int *arr;
@@ -56,6 +57,7 @@ int main(){
     int choice = 0;
     int input = 0;
     vector<int> original;
+    //MENU. Continuosly runs until 6 (exit program) is selected
     while(input != 6){
         cout<<"M E N U"<<endl;
         cout<<"Input Data (0), Insertion Sort (1), Selection Sort (2), Bubble Sort (3), Quick Sort (4), Radix Sort (5) Exit Program (6)"<<endl;
@@ -63,16 +65,16 @@ int main(){
         cin>>input;
         switch(input){
             case 0:
-                original = buildList();
+                original = buildList(); //build the list
                 break;
             case 1:
-                insertionSort(original);
+                insertionSort(original); //insertion sort
                 break;
             case 2:
-                selectionSort(original);
+                selectionSort(original); //selection
                 break;
             case 3:
-                bubbleSort(original);
+                bubbleSort(original); //names are self-evident
                 break;  
             case 4:
                 quickSort(original, 0, (original.size()-1));
@@ -90,12 +92,12 @@ int main(){
     return 0;
 }
 
-void swap(int *a, int *b) {
+void swap(int *a, int *b) { //helper function to swap two indices
   int t = *a;
   *a = *b;
   *b = t;
 }
-vector<int> buildList(){
+vector<int> buildList(){ //builds the vector to be sorted
     vector<int> temp;
     string inp;
     cin.ignore();
@@ -107,7 +109,7 @@ vector<int> buildList(){
     }
     return temp;
 }
-void printVector(vector<int> unsorted){
+void printVector(vector<int> unsorted){ //prints the vector
     int k = 0;
     while(k < unsorted.size()){
         cout<<unsorted[k]<<" ";
@@ -116,7 +118,7 @@ void printVector(vector<int> unsorted){
     cout<<endl;
 }
 
-void insertionSort(vector<int> unsorted){
+void insertionSort(vector<int> unsorted){ 
     for(int i = 1,j; i < unsorted.size(); i++){
         int tmp = unsorted[i];
         for(j=i; j>0 && tmp < unsorted[j-1]; j--){
@@ -181,7 +183,7 @@ void radixSort(vector<int> unsorted){
     register int d,j,k,factor;
     const int radix = 10;
     const int digits = 10;
-    queue *queues[radix] = {new queue, new queue, new queue, new queue, new queue, new queue, new queue, new queue, new queue, new queue};
+    queue *queues[radix] = {new queue, new queue, new queue, new queue, new queue, new queue, new queue, new queue, new queue, new queue}; //Array of queue arrays for radix sort
     for(d=0,factor = 1; d<digits; factor *= radix, d++){
         for(j=0; j<n; j++){
             queues[(unsorted[j] / factor) % radix]->enqueue(queues[(unsorted[j] / factor) % radix], unsorted[j]);
